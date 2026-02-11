@@ -1,0 +1,12 @@
+{
+  "Common": {
+    "loading": "Loading...",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "Home": {
+    "title": "PACKNOW-WEB",
+    "description": "Next.js 16 + shadcn + Tailwind 4 + Radix UI + Three.js + Agentation"
+  }
+}
