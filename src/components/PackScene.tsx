@@ -47,8 +47,8 @@ export default function PackagingScene() {
   };
 
   return (
-    <div style={{ width: '100vw', height: '100vh', background: '#fafafa' }}>
-      <Canvas shadows>
+    <div className="size-full min-h-[300px] bg-muted/30">
+      <Canvas shadows className="!block size-full">
         {/* 1. 相机配置: FOV 30, 位置参考 JSON */}
         <PerspectiveCamera makeDefault fov={30} position={[0.67, -0.01, 23.3]} />
 
