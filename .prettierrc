@@ -7,5 +7,13 @@
   "trailingComma": "all",
   "jsxSingleQuote": false,
   "printWidth": 100,
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "overrides": [
+    {
+      "files": ["src/services/access/api-client/**/*.{ts,tsx}"],
+      "options": {
+        "requirePragma": true
+      }
+    }
+  ]
 }

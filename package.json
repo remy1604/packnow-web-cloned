@@ -13,7 +13,8 @@
     "postinstall": "husky install",
     "commit": "git-cz",
     "type-check": "tsc --noEmit --project tsconfig.json",
-    "supabase:type": "supabase gen types typescript --project-id YOUR_PROJECT_ID > src/types/database.ts",
+    "generate:access": "openapi --input http://localhost:8000/access/api/openapi.json --output ./src/services/access/api-client --client fetch --useOptions --name AccessClient --exportServices true --indent 2",
+    "supabase:type": "supabase gen types typescript --project-id wrrpmtpvsqipynvmhzge > src/types/database.ts",
     "agentation:mcp": "npx agentation-mcp server"
   },
   "dependencies": {
@@ -39,6 +40,8 @@
     "@radix-ui/react-tooltip": "^1.2.8",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
+    "@stripe/react-stripe-js": "^5.6.0",
+    "@stripe/stripe-js": "^8.7.0",
     "@supabase/supabase-js": "^2.95.3",
     "canvas-confetti": "^1.9.4",
     "class-variance-authority": "^0.7.1",

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { Toaster } from 'sonner';
 import { AgentationProvider } from '@/components/AgentationProvider';
 import { SiteHeader } from '@/components/SiteHeader';
 import './globals.css';
@@ -30,6 +31,7 @@ export default function RootLayout({
         <SiteHeader />
         {children}
         <AgentationProvider />
+        <Toaster />
       </body>
     </html>
   );
