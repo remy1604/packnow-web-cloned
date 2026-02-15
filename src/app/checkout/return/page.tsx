@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { CheckCircle2, Loader2, XCircle } from 'lucide-react';
@@ -11,7 +11,7 @@ import type { Tables } from '@/types/database';
 
 type Order = Tables<'pouch_orders'>;
 
-export default function CheckoutSuccessPage() {
+function CheckoutReturnContent() {
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState<Order | null>(null);
@@ -154,5 +154,26 @@ export default function CheckoutSuccessPage() {
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+function ReturnPageFallback() {
+  return (
+    <div className="container flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center py-12">
+      <Card className="w-full max-w-md">
+        <CardContent className="flex flex-col items-center justify-center py-12">
+          <Loader2 className="text-muted-foreground size-8 animate-spin" />
+          <p className="text-muted-foreground mt-4 text-sm">正在加载订单信息...</p>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+export default function CheckoutSuccessPage() {
+  return (
+    <Suspense fallback={<ReturnPageFallback />}>
+      <CheckoutReturnContent />
+    </Suspense>
   );
 }
