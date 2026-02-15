@@ -73,6 +73,75 @@ export type Database = {
           },
         ];
       };
+      pouch_products: {
+        Row: {
+          id: string;
+          name: string;
+          name_en: string | null;
+          description: string | null;
+          image_url: string | null;
+          slug: string | null;
+          min_order: number;
+          is_active: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          name_en?: string | null;
+          description?: string | null;
+          image_url?: string | null;
+          slug?: string | null;
+          min_order?: number;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          name_en?: string | null;
+          description?: string | null;
+          image_url?: string | null;
+          slug?: string | null;
+          min_order?: number;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      pouch_product_attribute_values: {
+        Row: {
+          product_id: string;
+          attribute_value_id: string;
+        };
+        Insert: {
+          product_id: string;
+          attribute_value_id: string;
+        };
+        Update: {
+          product_id?: string;
+          attribute_value_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'pouch_product_attr_product_id_fkey';
+            columns: ['product_id'];
+            isOneToOne: false;
+            referencedRelation: 'pouch_products';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'pouch_product_attr_attribute_value_id_fkey';
+            columns: ['attribute_value_id'];
+            isOneToOne: false;
+            referencedRelation: 'pouch_attribute_values';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       pouch_orders: {
         Row: {
           created_at: string;

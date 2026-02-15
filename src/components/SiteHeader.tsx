@@ -14,6 +14,9 @@ export function SiteHeader() {
           <Link href="/" className="text-muted-foreground hover:text-foreground text-sm">
             首页
           </Link>
+          <Link href="/products" className="text-muted-foreground hover:text-foreground text-sm">
+            产品目录
+          </Link>
           <Link href="/studio" className="text-muted-foreground hover:text-foreground text-sm">
             设计
           </Link>
