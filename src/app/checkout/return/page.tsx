@@ -6,10 +6,9 @@ import Link from 'next/link';
 import { CheckCircle2, Loader2, XCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { supabase } from '@/services/supabase/supabase';
-import type { Tables } from '@/types/database';
+import { PouchOrderService, type PouchOrder } from '@/services/supabase/pouch_orders';
 
-type Order = Tables<'pouch_orders'>;
+type Order = PouchOrder;
 
 function CheckoutReturnContent() {
   const searchParams = useSearchParams();
@@ -31,18 +30,7 @@ function CheckoutReturnContent() {
         }
 
         // 通过stripe_session_id查询订单
-        const { data, error: queryError } = await supabase
-          .from('pouch_orders')
-          .select('*')
-          .eq('stripe_session_id', sessionId)
-          .single();
-
-        if (queryError) {
-          console.error('查询订单失败:', queryError);
-          setError('查询订单失败，请稍后重试');
-          setLoading(false);
-          return;
-        }
+        const data = await PouchOrderService.getPouchOrderByStripeSessionId(sessionId);
 
         if (!data) {
           setError('未找到对应的订单');

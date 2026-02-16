@@ -39,6 +39,7 @@ export type Database = {
         Row: {
           category_id: string;
           created_at: string;
+          description: string | null;
           id: string;
           is_active: boolean;
           name: string;
@@ -48,6 +49,7 @@ export type Database = {
         Insert: {
           category_id: string;
           created_at?: string;
+          description?: string | null;
           id: string;
           is_active?: boolean;
           name: string;
@@ -57,6 +59,7 @@ export type Database = {
         Update: {
           category_id?: string;
           created_at?: string;
+          description?: string | null;
           id?: string;
           is_active?: boolean;
           name?: string;
@@ -205,6 +208,111 @@ export type Database = {
         };
         Relationships: [];
       };
+      pouch_products: {
+        Row: {
+          base_type: string;
+          capacity_volume: number;
+          capacity_weight: number;
+          clear_window: Database['public']['Enums']['pouch_clear_window'];
+          corner_style: Database['public']['Enums']['pouch_corner_style'];
+          created_at: string;
+          description: string | null;
+          dieline_url: string;
+          dimensions_gusset: number;
+          dimensions_height: number;
+          dimensions_width: number;
+          filler: string;
+          hang_hole: Database['public']['Enums']['pouch_hang_hole'];
+          id: string;
+          industry: string;
+          material_structure: string;
+          mockup_model_url: string;
+          name: string;
+          public: boolean;
+          spout: Database['public']['Enums']['pouch_spout'];
+          surface_finish: Database['public']['Enums']['pouch_surface_finish'];
+          tear_notch: Database['public']['Enums']['pouch_tear_notch'];
+          thickness: number;
+          tintie: Database['public']['Enums']['pouch_tintie'];
+          updated_at: string;
+          valve: Database['public']['Enums']['pouch_valve'];
+          zipper: Database['public']['Enums']['pouch_zipper'];
+        };
+        Insert: {
+          base_type: string;
+          capacity_volume: number;
+          capacity_weight: number;
+          clear_window: Database['public']['Enums']['pouch_clear_window'];
+          corner_style: Database['public']['Enums']['pouch_corner_style'];
+          created_at?: string;
+          description?: string | null;
+          dieline_url: string;
+          dimensions_gusset: number;
+          dimensions_height: number;
+          dimensions_width: number;
+          filler: string;
+          hang_hole: Database['public']['Enums']['pouch_hang_hole'];
+          id?: string;
+          industry: string;
+          material_structure: string;
+          mockup_model_url: string;
+          name: string;
+          public: boolean;
+          spout: Database['public']['Enums']['pouch_spout'];
+          surface_finish: Database['public']['Enums']['pouch_surface_finish'];
+          tear_notch: Database['public']['Enums']['pouch_tear_notch'];
+          thickness: number;
+          tintie: Database['public']['Enums']['pouch_tintie'];
+          updated_at?: string;
+          valve: Database['public']['Enums']['pouch_valve'];
+          zipper: Database['public']['Enums']['pouch_zipper'];
+        };
+        Update: {
+          base_type?: string;
+          capacity_volume?: number;
+          capacity_weight?: number;
+          clear_window?: Database['public']['Enums']['pouch_clear_window'];
+          corner_style?: Database['public']['Enums']['pouch_corner_style'];
+          created_at?: string;
+          description?: string | null;
+          dieline_url?: string;
+          dimensions_gusset?: number;
+          dimensions_height?: number;
+          dimensions_width?: number;
+          filler?: string;
+          hang_hole?: Database['public']['Enums']['pouch_hang_hole'];
+          id?: string;
+          industry?: string;
+          material_structure?: string;
+          mockup_model_url?: string;
+          name?: string;
+          public?: boolean;
+          spout?: Database['public']['Enums']['pouch_spout'];
+          surface_finish?: Database['public']['Enums']['pouch_surface_finish'];
+          tear_notch?: Database['public']['Enums']['pouch_tear_notch'];
+          thickness?: number;
+          tintie?: Database['public']['Enums']['pouch_tintie'];
+          updated_at?: string;
+          valve?: Database['public']['Enums']['pouch_valve'];
+          zipper?: Database['public']['Enums']['pouch_zipper'];
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'pouch_products_base_type_fkey';
+            columns: ['base_type'];
+            isOneToOne: false;
+            referencedRelation: 'pouch_attribute_values';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'pouch_products_material_structure_fkey';
+            columns: ['material_structure'];
+            isOneToOne: false;
+            referencedRelation: 'pouch_attribute_values';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
     };
     Views: {
       [_ in never]: never;
@@ -213,7 +321,16 @@ export type Database = {
       [_ in never]: never;
     };
     Enums: {
+      pouch_clear_window: 'clear window' | 'none';
+      pouch_corner_style: 'square' | 'rounded';
+      pouch_hang_hole: 'euro hole' | 'round hole' | 'none';
       pouch_order_state: 'Created' | 'Paid';
+      pouch_spout: 'corner spout' | 'center spout' | 'none';
+      pouch_surface_finish: 'matte' | 'gloss' | 'soft touch' | 'holographic' | 'kraft';
+      pouch_tear_notch: 'both sides' | 'left only' | 'none';
+      pouch_tintie: 'tin tie' | 'none';
+      pouch_valve: 'one-way degassing valve' | 'none';
+      pouch_zipper: 'press to close' | 'pocket zipper' | 'child resistant' | 'none';
     };
     CompositeTypes: {
       [_ in never]: never;
@@ -339,7 +456,16 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      pouch_clear_window: ['clear window', 'none'],
+      pouch_corner_style: ['square', 'rounded'],
+      pouch_hang_hole: ['euro hole', 'round hole', 'none'],
       pouch_order_state: ['Created', 'Paid'],
+      pouch_spout: ['corner spout', 'center spout', 'none'],
+      pouch_surface_finish: ['matte', 'gloss', 'soft touch', 'holographic', 'kraft'],
+      pouch_tear_notch: ['both sides', 'left only', 'none'],
+      pouch_tintie: ['tin tie', 'none'],
+      pouch_valve: ['one-way degassing valve', 'none'],
+      pouch_zipper: ['press to close', 'pocket zipper', 'child resistant', 'none'],
     },
   },
 } as const;
