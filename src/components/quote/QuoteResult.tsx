@@ -261,9 +261,9 @@ export function QuoteResult({ quote, showActions = true }: QuoteResultProps) {
       </Collapsible>
 
       {/* 产品详情 */}
-      <Card>
+      <Card className="border-primary/20 bg-gradient-to-br from-card via-primary/5 to-card">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-base">
+          <CardTitle className="flex items-center gap-2 text-base text-primary">
             <Package className="size-4" />
             产品详情
           </CardTitle>

@@ -123,9 +123,9 @@ export default function CheckoutPage() {
       return (
         <div className="min-h-[calc(100vh-3.5rem)] bg-muted/20">
           <div className="mx-auto w-full max-w-2xl px-4 py-8 sm:px-6 lg:px-8">
-            <Card>
+            <Card className="border-primary/20 bg-gradient-to-br from-card via-primary/5 to-card">
               <CardHeader>
-                <CardTitle className="text-base">支付配置错误</CardTitle>
+                <CardTitle className="text-base text-primary">支付配置错误</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-destructive text-sm">
@@ -144,9 +144,9 @@ export default function CheckoutPage() {
     return (
       <div className="min-h-[calc(100vh-3.5rem)] bg-muted/20">
         <div className="mx-auto w-full max-w-2xl px-4 py-8 sm:px-6 lg:px-8">
-          <Card>
+          <Card className="border-primary/20 bg-gradient-to-br from-primary/5 via-card to-primary/10">
             <CardHeader>
-              <CardTitle className="text-base">支付</CardTitle>
+              <CardTitle className="text-base text-primary">支付</CardTitle>
               <p className="text-muted-foreground text-sm">
                 使用 Stripe 安全支付（信用卡 / Apple Pay）
               </p>
@@ -183,9 +183,9 @@ export default function CheckoutPage() {
         {/* 左侧：收货与支付 */}
         <div className="lg:col-span-3 space-y-6">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <Card>
+            <Card className="border-primary/20 bg-gradient-to-br from-card via-primary/5 to-card">
               <CardHeader>
-                <CardTitle className="text-base">收货信息</CardTitle>
+                <CardTitle className="text-base text-primary">收货信息</CardTitle>
                 <p className="text-muted-foreground text-sm">
                   填写后用于发货与联系（需 ANDY 确认字段）
                 </p>
@@ -300,9 +300,9 @@ export default function CheckoutPage() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-primary/20 bg-gradient-to-br from-primary/5 via-card to-primary/10">
               <CardHeader>
-                <CardTitle className="text-base">支付</CardTitle>
+                <CardTitle className="text-base text-primary">支付</CardTitle>
                 <p className="text-muted-foreground text-sm">
                   使用 Stripe 安全支付（信用卡 / Apple Pay）
                 </p>
@@ -318,9 +318,9 @@ export default function CheckoutPage() {
 
         {/* 右侧：订单摘要 */}
         <div className="lg:col-span-2">
-          <Card>
+          <Card className="border-primary/20 bg-gradient-to-br from-amber-50/60 via-card to-orange-50/50 dark:from-amber-950/20 dark:via-card dark:to-orange-950/10">
             <CardHeader>
-              <CardTitle className="text-base">订单摘要</CardTitle>
+              <CardTitle className="text-base text-primary">订单摘要</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex gap-4">

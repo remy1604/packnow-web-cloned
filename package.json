@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "sync:mockups": "node -e \"const fs=require('fs');const path=require('path');const src='src/assets/mockups';const dest='public/mockups';if(!fs.existsSync(dest))fs.mkdirSync(dest,{recursive:true});fs.readdirSync(src).filter(f=>f.endsWith('.glb')).forEach(f=>fs.copyFileSync(path.join(src,f),path.join(dest,f)));\"",
+    "build": "npm run sync:mockups && next build",
     "start": "next start",
     "lint": "eslint \"**/*.{ts,tsx,js,jsx}\" --fix",
     "lint:ci": "eslint \"**/*.{ts,tsx,js,jsx}\"",
@@ -47,6 +48,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "fabric": "^5.5.2",
     "framer-motion": "^12.33.0",
     "lucide-react": "^0.563.0",
     "next": "16.1.6",

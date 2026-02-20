@@ -9,7 +9,7 @@ export const FILTER_BASE_TYPE = {
     { id: 'standup-pouch', name: 'Stand Up Pouch', name_zh: '自立袋' },
     { id: 'flat-bottom-pouch', name: 'Flat Bottom Pouch', name_zh: '平底袋' },
     { id: 'gusset-bag', name: 'Gusset Bag', name_zh: '风琴袋' },
-    { id: 'backseal-bag', name: 'Back Seal Bag', name_zh: '背封袋' },
+    { id: 'flat-pouch-bag', name: 'Flat Pouch', name_zh: '平口袋' },
     { id: '3-side-seal-bag', name: '3-Side Seal Bag', name_zh: '三边封' },
     { id: '8-side-seal-bag', name: '8-Side Seal Bag', name_zh: '八边封' },
   ],
@@ -87,11 +87,10 @@ FALLBACK_FILTER_CATEGORIES.forEach((cat) => {
  * 演示产品与筛选属性值 id 的对应（产品 id -> 该产品所属的 valueId 列表）
  * 用于无后端时按「袋型 / 行业 / 容量 / 材料」做前端筛选
  */
+/** 首页 4 种袋型 product.id → 筛选属性 valueId 列表 */
 export const FALLBACK_PRODUCT_ATTRIBUTE_IDS: Record<string, string[]> = {
   'stand-up-pouch': ['standup-pouch', 'coffee', 'standard-fill', 'foil'],
-  'eight-side-seal': ['8-side-seal-bag', 'dried-fruit', 'standard-fill', 'standard'],
-  'spout-pouch': ['gusset-bag', 'liquid', 'small-fill', 'foil'],
-  'three-side-seal': ['3-side-seal-bag', 'protein-powder', 'standard-fill', 'kraft'],
-  'back-seal': ['backseal-bag', 'coffee', 'samples', 'kraft'],
-  'flat-pouch': ['flat-bottom-pouch', 'pet-food', 'large-fill', 'standard'],
+  'gusset-bag': ['gusset-bag', 'snacks', 'standard-fill', 'foil'],
+  'flat-pouch': ['flat-pouch-bag', 'coffee', 'samples', 'kraft'],
+  'flat-bottom-bag': ['flat-bottom-pouch', 'pet-food', 'large-fill', 'standard'],
 };

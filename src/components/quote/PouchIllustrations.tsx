@@ -327,13 +327,13 @@ export function FlatBottomBagSVG({ className = 'h-24 w-20' }: PouchProps) {
   );
 }
 
-export function BackSealBagSVG({ className = 'h-24 w-20' }: PouchProps) {
+export function FlatPouchSVG({ className = 'h-24 w-20' }: PouchProps) {
   return (
     <svg viewBox="0 0 120 160" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <ellipse cx="60" cy="150" rx="34" ry="4" fill="#e2e8f0" />
       <path
         d="M25 20 C20 20 18 25 18 30 L18 140 C18 145 22 148 25 148 L95 148 C98 148 102 145 102 140 L102 30 C102 25 100 20 95 20 Z"
-        fill="url(#bs-grad)"
+        fill="url(#fp-grad)"
         stroke="#94a3b8"
         strokeWidth="1.5"
       />
@@ -392,7 +392,7 @@ export function BackSealBagSVG({ className = 'h-24 w-20' }: PouchProps) {
       />
       <defs>
         <linearGradient
-          id="bs-grad"
+          id="fp-grad"
           x1="18"
           y1="20"
           x2="102"
@@ -407,11 +407,10 @@ export function BackSealBagSVG({ className = 'h-24 w-20' }: PouchProps) {
   );
 }
 
+/** 仅 4 种袋型插图 */
 export const POUCH_ILLUSTRATIONS: Record<string, React.FC<PouchProps>> = {
   'stand-up': StandUpPouchSVG,
-  'three-side': ThreeSideSealSVG,
-  'eight-side': EightSideSealSVG,
   gusseted: GussetedBagSVG,
+  'flat-pouch': FlatPouchSVG,
   'flat-bottom': FlatBottomBagSVG,
-  'back-seal': BackSealBagSVG,
 };

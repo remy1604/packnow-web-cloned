@@ -55,7 +55,7 @@ function CheckoutReturnContent() {
   if (loading) {
     return (
       <div className="container flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center py-12">
-        <Card className="w-full max-w-md">
+        <Card className="w-full max-w-md border-primary/20 bg-gradient-to-br from-card via-primary/5 to-card">
           <CardContent className="flex flex-col items-center justify-center py-12">
             <Loader2 className="size-8 animate-spin text-muted-foreground" />
             <p className="mt-4 text-muted-foreground text-sm">正在加载订单信息...</p>
@@ -68,12 +68,12 @@ function CheckoutReturnContent() {
   if (error || !order) {
     return (
       <div className="container flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center py-12">
-        <Card className="w-full max-w-md">
+        <Card className="w-full max-w-md border-primary/20 bg-gradient-to-br from-card via-primary/5 to-card">
           <CardHeader className="text-center">
             <div className="mx-auto mb-2 flex size-14 items-center justify-center rounded-full bg-destructive/10">
               <XCircle className="text-destructive size-8" />
             </div>
-            <CardTitle>订单查询失败</CardTitle>
+            <CardTitle className="text-primary">订单查询失败</CardTitle>
             <p className="text-muted-foreground text-sm">{error || '未找到订单信息'}</p>
           </CardHeader>
           <CardContent className="space-y-4 text-center">
@@ -91,7 +91,7 @@ function CheckoutReturnContent() {
 
   return (
     <div className="container flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center py-12">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md border-primary/20 bg-gradient-to-br from-amber-50/80 via-card to-orange-50/60 dark:from-amber-950/30 dark:via-card dark:to-orange-950/20">
         <CardHeader className="text-center">
           <div className="mx-auto mb-2 flex size-14 items-center justify-center rounded-full bg-primary/10">
             {isPaid ? (
@@ -100,7 +100,7 @@ function CheckoutReturnContent() {
               <Loader2 className="text-primary size-8 animate-spin" />
             )}
           </div>
-          <CardTitle>{isPaid ? '支付成功' : '订单处理中'}</CardTitle>
+          <CardTitle className="text-primary">{isPaid ? '支付成功' : '订单处理中'}</CardTitle>
           <p className="text-muted-foreground text-sm">
             订单ID: <strong>{order.id}</strong>
           </p>
@@ -148,7 +148,7 @@ function CheckoutReturnContent() {
 function ReturnPageFallback() {
   return (
     <div className="container flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center py-12">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md border-primary/20 bg-gradient-to-br from-card via-primary/5 to-card">
         <CardContent className="flex flex-col items-center justify-center py-12">
           <Loader2 className="text-muted-foreground size-8 animate-spin" />
           <p className="text-muted-foreground mt-4 text-sm">正在加载订单信息...</p>

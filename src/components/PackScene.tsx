@@ -1,72 +1,79 @@
 'use client';
 
-import React, { Suspense } from 'react';
+import React, { Suspense, useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
+import { OrbitControls, useGLTF, Environment, ContactShadows, Center } from '@react-three/drei';
 import {
-  OrbitControls,
-  useGLTF,
-  Environment,
-  ContactShadows,
-  PerspectiveCamera,
-} from '@react-three/drei';
+  getPreset,
+  getPresetForBagType,
+  type PackScenePresetKey,
+  type PackScenePreset,
+  type ModelGroupConfig,
+} from '@/lib/pack-scene-presets';
 
-// 模型配置类型
-interface ModelConfig {
-  scale: { x: number; y: number; z: number };
-  position: { x: number; y: number; z: number };
-  rotation: { _x: number; _y: number; _z: number };
-}
-
-// 模型组件
-function PouchModel({ url, config }: { url: string; config: ModelConfig }) {
+// 模型组件：按 mockup 的 scale/position/rotation 放置 GLB
+function PouchModel({ url, config }: { url: string; config: ModelGroupConfig }) {
   const { scene } = useGLTF(url);
-
-  // 根据 JSON 中的 scale (0.05) 进行缩放
   const s = config.scale.x;
 
   return (
     <primitive
       object={scene}
-      scale={[s, s, s]}
+      scale={[s, config.scale.y, config.scale.z]}
       position={[config.position.x, config.position.y, config.position.z]}
       rotation={[config.rotation._x, config.rotation._y, config.rotation._z]}
     />
   );
 }
 
-export default function PackagingScene() {
-  // 从你提供的 JSON 中提取的关键参数
-  const modelUrl =
-    'https://cdn.pacdora.com/static/blender/dabb750d-84aa-43d9-82e1-79df79867cd2.glb';
-  const hdrUrl = 'https://cdn.pacdora.com/hdr/b9f66e36-632a-4686-a4da-bfafe7604154.hdr';
+export interface PackSceneProps {
+  /** 预设 key，与 docs 下 mockup 类型对应 */
+  preset?: PackScenePresetKey;
+  /** 或直接传袋型 id（stand-up / gusseted / flat-bottom 等），内部映射到预设 */
+  bagType?: string;
+  /** 或直接传完整配置，优先级高于 preset/bagType */
+  config?: PackScenePreset;
+  /** 可选：覆盖默认场景缩放倍数，仅当某页需要更大/更小 3D 时使用，不传则用默认值 */
+  sceneScaleMultiplier?: number;
+  /** 可选：相机距离，仅当某页需要更大/更小 3D 时使用，不传则用默认值 */
+  cameraDistance?: number;
+}
 
-  const groupConfig = {
-    scale: { x: 0.05, y: 0.05, z: 0.05 },
-    position: { x: -0.019, y: 0.016, z: -0.018 },
-    rotation: { _x: 0, _y: 0, _z: 0 },
-  };
+function useResolvedConfig(props: PackSceneProps): PackScenePreset {
+  return useMemo(() => {
+    if (props.config) return props.config;
+    if (props.bagType) return getPresetForBagType(props.bagType);
+    return getPreset(props.preset ?? 'stand-up-pouch');
+  }, [props.config, props.bagType, props.preset]);
+}
+
+/** 场景整体缩放倍数（预设基础上再放大），默认值勿改，其他页已按此调好 */
+const DEFAULT_SCENE_SCALE_MULTIPLIER = 8;
+const DEFAULT_CAMERA_DISTANCE = 20;
+
+export default function PackagingScene(props: PackSceneProps) {
+  const { modelUrl, hdrUrl, groupConfig, sceneScale = 1.15 } = useResolvedConfig(props);
+  const multiplier = props.sceneScaleMultiplier ?? DEFAULT_SCENE_SCALE_MULTIPLIER;
+  const cameraZ = props.cameraDistance ?? DEFAULT_CAMERA_DISTANCE;
+  const scale = sceneScale * multiplier;
 
   return (
     <div className="size-full min-h-[300px] bg-muted/30">
-      <Canvas shadows className="!block size-full">
-        {/* 1. 相机配置: FOV 30, 位置参考 JSON */}
-        <PerspectiveCamera makeDefault fov={30} position={[0.67, -0.01, 23.3]} />
-
+      <Canvas shadows className="!block size-full" camera={{ position: [0, 0, cameraZ], fov: 32 }}>
         <Suspense fallback={null}>
-          {/* 2. 环境光照明: 使用 JSON 中的 HDR 地址 */}
           <Environment files={hdrUrl} />
-
-          {/* 3. 主灯光 (SunLight) */}
           <directionalLight intensity={0.4} position={[-80, 391, 300]} castShadow />
 
-          {/* 4. 模型加载 */}
-          <PouchModel url={modelUrl} config={groupConfig} />
+          <Center>
+            <group scale={[scale, scale, scale]}>
+              <PouchModel key={modelUrl} url={modelUrl} config={groupConfig} />
+            </group>
+          </Center>
 
-          {/* 5. 落地阴影 (对应 planeY: -10) */}
           <ContactShadows position={[0, -4.37, 0]} opacity={0.5} scale={10} blur={2} far={4.5} />
         </Suspense>
 
-        <OrbitControls makeDefault minDistance={5} maxDistance={50} />
+        <OrbitControls makeDefault minDistance={6} maxDistance={45} target={[0, 0, 0]} />
       </Canvas>
     </div>
   );
