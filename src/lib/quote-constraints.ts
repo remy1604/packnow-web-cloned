@@ -97,6 +97,13 @@ export function isProcessOptionDisabled(
   materialId: string,
   currentProcesses: string[],
 ): boolean {
+  // Spout is mutually exclusive with zipper/tin-tie/valve.
+  // Keep this guard in disabled logic (not only "clear on select"),
+  // so user cannot re-enable conflicting options after selecting one side.
+  if (ZIPPER_PROCESS_IDS.includes(processId) && hasAnySpout(currentProcesses)) return true;
+  if (SPOUT_PROCESS_IDS.includes(processId) && hasAnyZipper(currentProcesses)) return true;
+  if (processId === PROCESS_ID_TIN_TIE && hasAnySpout(currentProcesses)) return true;
+
   if (processId === PROCESS_ID_TIN_TIE && !isTinTieAllowedForBagType(bagType)) return true;
   if (processId === PROCESS_ID_TIN_TIE && hasAnyZipper(currentProcesses)) return true;
   if (ZIPPER_PROCESS_IDS.includes(processId) && currentProcesses.includes(PROCESS_ID_TIN_TIE))
